@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Harsh 💖</title>
+
+<!-- Stylish font for secret message -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(#ffd6e8, #fff);
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+/* HEARTS */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+@keyframes float {
+  from { transform: translateY(100vh); opacity: 1; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* COUNTDOWN */
+#countdown {
+  font-size: 90px;
+  margin-top: 40vh;
+  color: #c9184a;
+}
+
+/* BOX */
+#box {
+  width: 170px;
+  height: 130px;
+  background: #ff6f91;
+  margin: auto;
+  display: none;
+  position: relative;
+  border-radius: 14px;
+}
+#lid {
+  width: 180px;
+  height: 45px;
+  background: #ff4f7b;
+  position: absolute;
+  top: -45px;
+  left: -5px;
+  border-radius: 14px;
+  animation: open 1.5s forwards;
+}
+@keyframes open { to { transform: rotateX(140deg); } }
+
+/* CAKE */
+#cake {
+  display: none;
+  margin-top: 0px;
+}
+#cake-body {
+  font-size: 120px;
+}
+
+/* CANDLES */
+#candles {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 200px;
+  margin: auto;
+}
+.candle {
+  width: 4px;
+  height: 18px;
+  background: white;
+  margin: 3px;
+  position: relative;
+}
+.flame {
+  position: absolute;
+  top: -14px;
+  left: -6px;
+  opacity: 0;
+  font-size: 14px;
+}
+
+/* BLOW PUFF */
+.puff {
+  position: absolute;
+  font-size: 24px;
+  opacity: 1;
+  animation: puffAnim 1s ease-out forwards;
+}
+@keyframes puffAnim {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(2) translateY(-40px) translateX(20px); opacity: 0; }
+}
+
+/* GLOW TEXT + TYPING */
+#message {
+  margin-top: 20px;
+  font-size: 26px;
+  color: #c9184a;
+  text-shadow:
+    0 0 5px #ff8fab,
+    0 0 12px #ff8fab,
+    0 0 25px #ffb3c6;
+  min-height: 90px;
+}
+
+/* BALLOONS */
+.balloon {
+  position: absolute;
+  bottom: -100px;
+  font-size: 40px;
+  animation: rise 7s linear infinite;
+}
+@keyframes rise { to { transform: translateY(-120vh); } }
+
+/* CONFETTI */
+.confetti {
+  position: absolute;
+  font-size: 20px;
+  animation: fall 4s linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* SPARKLES */
+.sparkle {
+  position: absolute;
+  font-size: 18px;
+  animation: sparkle 2s ease-out forwards;
+}
+@keyframes sparkle {
+  to { transform: translateY(-30px) scale(0); opacity: 0; }
+}
+
+/* SECRET MESSAGE STYLING */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND MUSIC -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/09/audio_6b8e5b9fa0.mp3?filename=romantic-ambient-125908.mp3">
+</audio>
+
+<div id="countdown">3</div>
+
+<div id="box">
+  <div id="lid"></div>
+</div>
+
+<div id="cake">
+  <div id="candles"></div>
+  <div id="cake-body">🎂</div>
+</div>
+
+<div id="message"></div>
+
+<script>
+/* HEARTS */
+setInterval(() => {
+  let h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💗";
+  h.style.left = Math.random()*100 + "vw";
+  h.style.fontSize = (20 + Math.random()*20) + "px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},300);
+
+/* COUNTDOWN */
+let n = 3;
+let cd = document.getElementById("countdown");
+let timer = setInterval(() => {
+  n--;
+  cd.innerText = n;
+  if(n === 0){
+    clearInterval(timer);
+    cd.style.display = "none";
+    document.getElementById("box").style.display = "block";
+    setTimeout(showCake,1500);
+  }
+},1000);
+
+/* SHOW CAKE */
+function showCake(){
+  document.getElementById("cake").style.display = "block";
+  addCandles();
+  lightCandles();
+  confettiBlast();
+  sparkleLoop();
+  typeMessage();
+  listenBlowVolume();
+}
+
+/* ADD 20 CANDLES */
+function addCandles(){
+  let c = document.getElementById("candles");
+  for(let i=0;i<20;i++){
+    let candle = document.createElement("div");
+    candle.className = "candle";
+    let flame = document.createElement("div");
+    flame.className = "flame";
+    flame.innerHTML = "🔥";
+    candle.appendChild(flame);
+    c.appendChild(candle);
+  }
+}
+
+/* LIGHT CANDLES */
+function lightCandles(){
+  let flames = document.querySelectorAll(".flame");
+  flames.forEach((f,i)=>{ setTimeout(()=>{ f.style.opacity = 1; }, i*300); });
+}
+
+/* TYPING MESSAGE */
+const text = "HAPPY BIRTHDAY, HARSH JI 💖\nI LOVE YOU.\n– from K.";
+let idx = 0;
+function typeMessage(){
+  let msg = document.getElementById("message");
+  let typing = setInterval(()=>{
+    msg.innerHTML += text[idx] === "\n" ? "<br>" : text[idx];
+    idx++;
+    if(idx === text.length) clearInterval(typing);
+  },80);
+}
+
+/* CONFETTI */
+function confettiBlast(){
+  for(let i=0;i<70;i++){
+    let conf = document.createElement("div");
+    conf.className = "confetti";
+    conf.innerHTML = ["🎉","✨","💖","🎊"][Math.floor(Math.random()*4)];
+    conf.style.left = Math.random()*100 + "vw";
+    conf.style.top = "-20px";
+    document.body.appendChild(conf);
+    setTimeout(()=>conf.remove(),4000);
+  }
+}
+
+/* SPARKLES */
+function sparkleLoop(){
+  setInterval(() => {
+    let s = document.createElement("div");
+    s.className = "sparkle";
+    s.innerHTML = "✨";
+    s.style.left = (40 + Math.random()*20) + "vw";
+    s.style.top = (55 + Math.random()*10) + "vh";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),2000);
+  },500);
+}
+
+/* BALLOONS */
+for(let i=0;i<10;i++){
+  let b = document.createElement("div");
+  b.className = "balloon";
+  b.innerHTML = "🎈";
+  b.style.left = Math.random()*100 + "vw";
+  b.style.animationDelay = Math.random()*5 + "s";
+  document.body.appendChild(b);
+}
+
+/* BLOW CANDLES USING MICROPHONE VOLUME */
+function listenBlowVolume() {
+  if (!navigator.mediaDevices.getUserMedia) return alert("Microphone not supported");
+
+  navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+      const audioContext = new AudioContext();
+      const analyser = audioContext.createAnalyser();
+      const microphone = audioContext.createMediaStreamSource(stream);
+      microphone.connect(analyser);
+      analyser.fftSize = 512;
+      const dataArray = new Uint8Array(analyser.fftSize);
+
+      const checkVolume = () => {
+        analyser.getByteTimeDomainData(dataArray);
+        let max = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          let val = Math.abs(dataArray[i] - 128);
+          if (val > max) max = val;
+        }
+        if (max > 25) {
+          blowCandles();
+          return;
+        }
+        requestAnimationFrame(checkVolume);
+      };
+      checkVolume();
+    })
+    .catch(err => console.error("Microphone error:", err));
+}
+
+/* BLOW CANDLES FUNCTION */
+function blowCandles() {
+  let flames = document.querySelectorAll(".flame");
+  flames.forEach(f => f.style.opacity = 0);
+
+  // Puff animation from center of cake
+  let cakeBody = document.getElementById("cake-body");
+  let puff = document.createElement("div");
+  puff.className = "puff";
+  puff.innerHTML = "💨";
+  let rect = cakeBody.getBoundingClientRect();
+  puff.style.left = rect.left + rect.width/2 + "px";
+  puff.style.top = rect.top - 30 + "px";
+  document.body.appendChild(puff);
+  setTimeout(()=>puff.remove(),1000);
+
+  // Secret stylish message - fixed gradient width
+  const secret = document.createElement("div");
+  secret.style.display = "inline-block"; // fixes gradient fade
+  secret.style.fontFamily = "'Dancing Script', cursive";
+  secret.style.fontSize = "28px";
+  secret.style.fontWeight = "700";
+  secret.style.background = "linear-gradient(90deg, #ff1a75, #ff8fab, #ffd6e8)";
+  secret.style.webkitBackgroundClip = "text";
+  secret.style.webkitTextFillColor = "transparent";
+  secret.style.textAlign = "center";
+  secret.style.lineHeight = "1.5em";
+  secret.style.textShadow = "2px 2px 5px rgba(0,0,0,0.2)";
+  secret.style.animation = "fadeIn 2s ease forwards";
+  secret.innerHTML = `🎁 Happy Birthday, sweetheart. I hope you have an awesome day. I am so proud of my baby and you mean so much to me, I appreciate the shit out of you. Wishing you everything you ever wish for. I love you. 🎁`;
+
+  const wrapper = document.createElement("div");
+  wrapper.style.textAlign = "center";
+  wrapper.style.marginTop = "20px";
+  wrapper.appendChild(secret);
+  document.body.appendChild(wrapper);
+}
+</script>
+
+</body>
+</html>
